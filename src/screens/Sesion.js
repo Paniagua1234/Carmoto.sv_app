@@ -1,9 +1,10 @@
+import React,{ useEffect,useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
-import { useState } from 'react';
 import Input from '../components/Inputs/Input'
-import Buttons from '../components/Buttons/Button';
+import Buttons from '../components/Button/Button';
 import * as Constantes from '../utils/constantes'
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Sesion({ navigation }) {
 
@@ -13,12 +14,39 @@ export default function Sesion({ navigation }) {
   const [isContra, setIsContra] = useState(true)
   const [usuario, setUsuario] = useState('')
   const [contrasenia, setContrasenia] = useState('')
-  //const [confirmarContrasenia, setConfirmarContrasenia] = useState('')
-  //http://localhost/coffeeshop/api/services/public/cliente.php?action=signUpMovil
+
+  useFocusEffect(
+    // La función useFocusEffect ejecuta un efecto cada vez que la pantalla se enfoca.
+    React.useCallback(() => {
+      validarSesion(); // Llama a la función getDetalleCarrito.
+    }, [])
+  );
+
+  const validarSesion = async () => {
+    try {
+      const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=getUser`, {
+        method: 'GET'
+      });
+  
+      const data = await response.json();
+  
+      if (data.status === 1) {
+        navigation.navigate('TabNavigator');
+        console.log("Se ingresa con la sesión activa")
+      } else {
+        console.log("No hay sesión activa")
+        return
+      }
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', 'Ocurrió un error al validar la sesión');
+    }
+  }
+
 
   const cerrarSesion = async () => {
     try {
-      const response = await fetch(`${ip}/coffeeshop/api/services/public/cliente.php?action=logOut`, {
+      const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=logOut`, {
         method: 'GET'
       });
 
@@ -33,7 +61,7 @@ export default function Sesion({ navigation }) {
       }
     } catch (error) {
       console.error(error, "Error desde Catch");
-      Alert.alert('Error', 'Ocurrió un error al iniciar sesión con bryancito');
+      Alert.alert('Error', 'Ocurrió un error al iniciar sesión');
     }
   }
 
@@ -44,9 +72,9 @@ export default function Sesion({ navigation }) {
 
       const formData = new FormData();
       formData.append('correo', usuario);
-      formData.append('clave', contrasenia);
+      formData.append('contrasenia', contrasenia);
       //utilizar la direccion IP del servidor y no localhost
-      const response = await fetch(`${ip}/coffeeshop/api/services/public/cliente.php?action=logIn`, {
+      const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=logIn`, {
         method: 'POST',
         body: formData
       });

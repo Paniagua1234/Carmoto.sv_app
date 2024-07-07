@@ -6,7 +6,7 @@ import Constants from 'expo-constants';
 //Import de componentes
 import Input from '../components/Inputs/Input'
 import InputMultiline from '../components/Inputs/InputMultiline'
-import Buttons from '../components/Buttons/Button';
+import Buttons from '../components/Button/Button';
 import MaskedInputTelefono from '../components/Inputs/MaskedInputTelefono';
 import MaskedInputDui from '../components/Inputs/MaskedInputDui';
 
@@ -119,7 +119,7 @@ export default function SignUp({ navigation }) {
             formData.append('gRecaptchaResponse', 'your_recaptcha_response'); // Add this line
             formData.append('condicion', 'true'); // Add this line
     
-            const response = await fetch(`${ip}/CARMOTO.SV/api/services/public/cliente.php?action=signUp`, {
+            const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=signUp`, {
                 method: 'POST',
                 body: formData
             });
@@ -214,7 +214,7 @@ export default function SignUp({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#EAD8C0',
+        backgroundColor: '#F01212',
         paddingTop: Constants.statusBarHeight,
       },
     scrollViewStyle: {

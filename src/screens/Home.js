@@ -1,19 +1,17 @@
+import React from 'react';
 import { StyleSheet, Text, View,TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useEffect, useState } from 'react';
 import * as Constantes from '../utils/constantes'
-import Buttons from '../components/Buttons/Button';
+import Buttons from '../components/Button/Button';
 
 
 export default function Home({navigation}) {
-  const [correo, setCorreo]=useState(null)
-  const [nombre, setNombre]=useState(null)
-
-
+  const [nombre, setNombre] = useState(null);
   const ip = Constantes.IP;
   
   const handleLogout = async () => {
         try {
-          const response = await fetch(`${ip}/CARMOTO.SV/api/services/public/cliente.php?action=logOut`, {
+          const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=logOut`, {
             method: 'GET'
           });
     
@@ -33,7 +31,7 @@ export default function Home({navigation}) {
 
       const getUser = async () => {
         try {
-          const response = await fetch(`${ip}/CARMOTO.SV/api/services/public/cliente.php?action=getUser`, {
+          const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=getUser`, {
             method: 'GET'
           });
     
@@ -63,7 +61,7 @@ export default function Home({navigation}) {
 
     
   const irActualizar = async () => {
-    navigation.navigate('Productos');
+    navigation.navigate('Producto');
   };
 
  return (
@@ -90,7 +88,7 @@ export default function Home({navigation}) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#EAD8C0',
+      backgroundColor: '#F01212',
       alignItems: 'center',
       justifyContent: 'center'
     },
