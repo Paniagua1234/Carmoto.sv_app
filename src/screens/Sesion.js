@@ -142,7 +142,7 @@ export default function Sesion({ navigation }) {
       />
       </View>
 
-      <TouchableOpacity onPress={irRegistrar}>
+      <TouchableOpacity onPress={irRegistrar} style={styles.BotonRegistrar}>
         <Text style={styles.textRegistrar}>Registrar Usuario</Text>
       </TouchableOpacity>
 
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   button: {
     borderWidth: 2,
     borderColor: "#AF8260",
@@ -167,23 +168,41 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 10
   },
+
+  BotonRegistrar: {
+    borderWidth: 2,
+    borderColor: "#FFFFFF",
+    width: 150,
+    borderRadius: 10,
+    marginTop: 20,
+    width: 250,
+    backgroundColor: '#000000',
+    padding: 10,
+  },
+
   buttonText: {
     textAlign: 'center',
     color: "#FFF", fontWeight: '800', textTransform: 'uppercase'
   },
+
   texto: {
     color: '#FFFFFF', fontWeight: '900',
     fontSize: 20
   },
+
   textRegistrar: {
-    color: '#FFFFFF', fontWeight: '700',
+    color: '#FFFFFF', 
+    fontWeight: '700',
+    textAlign: 'center',
     fontSize: 18
   },
+
   image: {
     width: 150,
     height: 75,
     marginBottom: 10
   },
+
   loginContainer: {
     padding: 20,
     borderRadius: 10,
@@ -196,6 +215,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+
   inputField: {
     height: 40,
     borderWidth: 1,
@@ -204,14 +224,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
   },
+
   loginButton: {
     paddingVertical: 10,
     borderRadius: 5,
     alignItems: 'center',
   },
+
   closeButton: {
     marginTop: 10,
   },
+
   closeText: {
     color: '#fff',
     textDecorationLine: 'underline',
