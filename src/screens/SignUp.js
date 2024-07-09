@@ -119,7 +119,7 @@ export default function SignUp({ navigation }) {
             formData.append('gRecaptchaResponse', 'your_recaptcha_response'); // Add this line
             formData.append('condicion', 'true'); // Add this line
     
-            const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=signUp`, {
+            const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=signUpMovil`, {
                 method: 'POST',
                 body: formData
             });
