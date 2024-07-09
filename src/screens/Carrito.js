@@ -100,5 +100,76 @@ const Carrito = ({ navigation }) => {
     />
   );
 
+  return (
+    <View style={styles.container}>
+      {/* Componente de modal para editar cantidad */}
+      <ModalEditarCantidad
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+        idDetalle={idDetalle}
+        setIdDetalle={setIdDetalle}
+        setCantidadProductoCarrito={setCantidadProductoCarrito}
+        cantidadProductoCarrito={cantidadProductoCarrito}
+        getDetalleCarrito={getDetalleCarrito}
+      />
 
+      {/* Título de la pantalla */}
+      <Text style={styles.title}>Carrito de Compras</Text>
+
+      {/* Lista de detalles del carrito */}
+      {dataDetalleCarrito.length > 0 ? (
+        <FlatList
+          data={dataDetalleCarrito}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id_detalle.toString()}
+        />
+      ) : (
+        <Text style={styles.titleDetalle}>No hay detalles del carrito disponibles.</Text>
+      )}
+
+      {/* Botones de finalizar pedido y regresar a productos */}
+      <View style={styles.containerButtons}>
+        {dataDetalleCarrito.length > 0 && (
+          <Buttons
+            textoBoton='Finalizar Pedido'
+            accionBoton={finalizarPedido}
+          />
+        )}
+        <Buttons
+          textoBoton='Regresar a productos'
+          accionBoton={backProducts}
+        />
+      </View>
+    </View>
+  );
 }
+
+export default Carrito;
+
+// Estilos
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#EAD8C0',
+    paddingTop: Constants.statusBarHeight,
+    paddingHorizontal: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 16,
+    color: '#5C3D2E',
+  },
+  titleDetalle: {
+    fontSize: 20,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginVertical: 16,
+    color: '#5C3D2E',
+  },
+  containerButtons: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+});
