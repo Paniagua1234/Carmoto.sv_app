@@ -9,15 +9,15 @@ import InputMultiline from '../components/Inputs/InputMultiline'
 import Buttons from '../components/Button/Button';
 import MaskedInputTelefono from '../components/Inputs/MaskedInputTelefono';
 import MaskedInputDui from '../components/Inputs/MaskedInputDui';
-
-
+ 
+ 
 export default function SignUp({ navigation }) {
     const ip = Constantes.IP;
-
+ 
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-
+ 
     const [nombre, setNombre] = useState('')
     const [apellido, setApellido] = useState('')
     const [email, setEmail] = useState('')
@@ -27,52 +27,52 @@ export default function SignUp({ navigation }) {
     const [fechaNacimiento, setFechaNacimiento] = useState('')
     const [clave, setClave] = useState('')
     const [confirmarClave, setConfirmarClave] = useState('')
-
+ 
      // Expresiones regulares para validar DUI y teléfono
      const duiRegex = /^\d{8}-\d$/;
      const telefonoRegex = /^\d{4}-\d{4}$/;
-
+ 
     /*
     Codigo para mostrar el datetimepicker
     */
-
+ 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
         setShow(false);
         setDate(currentDate);
         /*
         Codigo para convertir la fecha al formato año-mes-dia */
-
+ 
         const year = currentDate.getFullYear();
         const month = String(currentDate.getMonth() + 1).padStart(2, '0');
         const day = String(currentDate.getDate()).padStart(2, '0');
-
+ 
         const fechaNueva = `${year}-${month}-${day}`;
         setFechaNacimiento(fechaNueva)
     };
-
+ 
     const showMode = (currentMode) => {
         setShow(true);
         setMode(currentMode);
     };
-
+ 
     const showDatepicker = () => {
         showMode('date');
     };
-
+ 
     /*
         Fin Codigo para mostrar el datetimepicker
         */
-
+ 
     const handleLogout = async () => {
         /*
                 try {
                     const response = await fetch(`${ip}/coffeeshop/api/services/public/cliente.php?action=logOut`, {
                         method: 'GET'
                     });
-        
+       
                     const data = await response.json();
-        
+       
                     if (data.status) {
                         navigation.navigate('Sesion');
                     } else {
@@ -86,10 +86,10 @@ export default function SignUp({ navigation }) {
                 } */
         navigation.navigate('Sesion');
     };
-
+ 
     //props que recibe input
     //placeHolder, setValor, contra, setTextChange
-
+ 
     const handleCreate = async () => {
         try {
             // Validar los campos
@@ -104,26 +104,24 @@ export default function SignUp({ navigation }) {
                 Alert.alert("El teléfono debe tener el formato correcto (####-####)");
                 return;
             }
-    
+   
             // Si todos los campos son válidos, proceder con la creación del usuario
             const formData = new FormData();
-            formData.append('nombreCliente', nombre);
+            formData.append('nombreCliente0', nombre);
             formData.append('apellidoCliente', apellido);
             formData.append('correoCliente', email);
             formData.append('direccionCliente', direccion);
             formData.append('duiCliente', dui);
             formData.append('nacimientoCliente', fechaNacimiento);
             formData.append('telefonoCliente', telefono);
-            formData.append('claveCliente', clave);
-            formData.append('confirmarClave', confirmarClave);
-            formData.append('gRecaptchaResponse', 'your_recaptcha_response'); // Add this line
-            formData.append('condicion', 'true'); // Add this line
-    
+            formData.append('contraseñaCliente', clave);
+            formData.append('confirmarContraseña', confirmarClave);
+               
             const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=signUpMovil`, {
                 method: 'POST',
                 body: formData
             });
-    
+   
             const data = await response.json();
             if (data.status) {
                 Alert.alert('Datos Guardados correctamente');
@@ -135,7 +133,7 @@ export default function SignUp({ navigation }) {
             Alert.alert('Ocurrió un error al intentar crear el usuario');
         }
     };
-
+ 
  
     return (
         <View style={styles.container}>
@@ -165,10 +163,10 @@ export default function SignUp({ navigation }) {
                     setDui={setDui} />
                 <View style={styles.contenedorFecha}>
                     <Text style={styles.fecha}>Fecha Nacimiento</Text>
-
+ 
                     <TouchableOpacity onPress={showDatepicker}><Text style={styles.fechaSeleccionar}>Seleccionar Fecha:</Text></TouchableOpacity>
                     <Text style={styles.fecha}>Seleccion: {fechaNacimiento}</Text>
-
+ 
                     {show && (
                         <DateTimePicker
                             testID="dateTimePicker"
@@ -179,7 +177,7 @@ export default function SignUp({ navigation }) {
                         />
                     )}
                 </View>
-
+ 
                 <MaskedInputTelefono
                     telefono={telefono}
                     setTelefono={setTelefono} />
@@ -193,24 +191,24 @@ export default function SignUp({ navigation }) {
                     contra={true}
                     setValor={confirmarClave}
                     setTextChange={setConfirmarClave} />
-
+ 
                 <Buttons
                     textoBoton='Registrar Usuario'
                     accionBoton={handleCreate}
                 />
-
+ 
                 <Buttons
                     textoBoton='Ir al Login'
                     accionBoton={handleLogout}
                 />
-
-
+ 
+ 
             </ScrollView>
         </View>
-
+ 
     );
 }
-
+ 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -229,7 +227,7 @@ const styles = StyleSheet.create({
         color: '#322C2B', fontWeight: '700',
         fontSize: 18
     },
-
+ 
     fecha: {
         fontWeight: '600',
         color: '#FFF'
@@ -248,5 +246,3 @@ const styles = StyleSheet.create({
         marginVertical: 10
     }
 });
-
-
