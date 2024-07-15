@@ -16,7 +16,7 @@ export default function ProductoCard({ ip, imagenProducto, idProducto, nombrePro
       <Text style={styles.textTitle}>{nombreProducto}</Text>
       <Text style={styles.text}>{descripcionProducto}</Text>
       <Text style={styles.textTitle}>Precio: <Text style={styles.textDentro}>${precioProducto}</Text></Text>
-      <Text style={styles.textTitle}>Existencias: <Text style={styles.textDentro}>{existenciasProducto} {(existenciasProducto === 1) ? 'Unidad' : 'Unidades'}</Text></Text>
+      <Text style={styles.textTitle}>Existencias: <Text style={styles.textDentro}>{existenciasProducto} {(existenciasProducto === 10) ? 'Unidad' : 'Unidades'}</Text></Text>
       <TouchableOpacity
         style={styles.cartButton}
         onPress={accionBotonProducto}>
