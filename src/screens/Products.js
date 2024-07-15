@@ -14,6 +14,7 @@ export default function Productos({ navigation }) {
   const [dataModelos, setDataModelos] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   const [cantidad, setCantidad] = useState('');
+  const [talla, setTalla]= useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [idProductoModal, setIdProductoModal] = useState('');
   const [nombreProductoModal, setNombreProductoModal] = useState('');
@@ -86,6 +87,8 @@ export default function Productos({ navigation }) {
         nombreProductoModal={nombreProductoModal}
         idProductoModal={idProductoModal}
         cantidad={cantidad}
+        talla={talla}
+        setTalla={setTalla}
         setCantidad={setCantidad}
       />
       <View>

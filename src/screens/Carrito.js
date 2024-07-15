@@ -8,7 +8,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 import Constants from 'expo-constants';
 import * as Constantes from '../utils/constantes';
-import Buttons from '../components/Buttons/Button';
+import Buttons from '../components/Button/Button';
 import CarritoCard from '../components/CarritoCard/CarritoCard';
 import ModalEditarCantidad from '../components/Modales/ModalEditarCantidad';
 
@@ -16,7 +16,7 @@ const Carrito = ({ navigation }) => {
   // Estado para almacenar los detalles del carrito
   const [dataDetalleCarrito, setDataDetalleCarrito] = useState([]);
   // Estado para el id del detalle seleccionado para modificar
-  const [idDetalle, setIdDetalle] = useState(null);
+  const [id_detalle, setIdDetalle] = useState(null);
   // Estado para la cantidad del producto seleccionado en el carrito
   const [cantidadProductoCarrito, setCantidadProductoCarrito] = useState(0);
   // Estado para controlar la visibilidad del modal de edición de cantidad
@@ -26,7 +26,7 @@ const Carrito = ({ navigation }) => {
 
   // Función para navegar hacia atrás a la pantalla de productos
   const backProducts = () => {
-    navigation.navigate('Productos');
+    navigation.navigate('Producto');
   };
 
   // Efecto para cargar los detalles del carrito al cargar la pantalla o al enfocarse en ella
@@ -40,7 +40,7 @@ const Carrito = ({ navigation }) => {
   // Función para obtener los detalles del carrito desde el servidor
   const getDetalleCarrito = async () => {
     try {
-      const response = await fetch(`${ip}/carmoto.sv/api/services/public/pedido.php?action=readDetail`, {
+      const response = await fetch(`${ip}/Carmoto.sv/api/services/public/pedido.php?action=readDetail`, {
         method: 'GET',
       });
       const data = await response.json();
@@ -55,19 +55,22 @@ const Carrito = ({ navigation }) => {
       console.error(error, "Error desde Catch");
       Alert.alert('Error', 'Ocurrió un error al listar las categorias');
     }
+
   };
+
+  
 
   // Función para finalizar el pedido
   const finalizarPedido = async () => {
     try {
-      const response = await fetch(`${ip}/carmoto.sv/api/services/public/pedido.php?action=finishOrder`, {
+      const response = await fetch(`${ip}/Carmoto.sv/api/services/public/pedido.php?action=finishOrder`, {
         method: 'GET',
       });
       const data = await response.json();
       if (data.status) {
         Alert.alert("Se finalizó la compra correctamente")
         setDataDetalleCarrito([]); // Limpia la lista de detalles del carrito
-        navigation.navigate('TabNavigator', { screen: 'Productos' });
+        navigation.navigate('TabNavigator', { screen: 'Producto' });
       } else {
         Alert.alert('Error', data.error);
       }
@@ -77,9 +80,9 @@ const Carrito = ({ navigation }) => {
   };
 
   // Función para manejar la modificación de un detalle del carrito
-  const handleEditarDetalle = (idDetalle, cantidadDetalle) => {
+  const handleEditarDetalle = (id_detalle, cantidadDetalle) => {
     setModalVisible(true);
-    setIdDetalle(idDetalle);
+    setIdDetalle(id_detalle);
     setCantidadProductoCarrito(cantidadDetalle);
   };
 
@@ -92,7 +95,7 @@ const Carrito = ({ navigation }) => {
       setModalVisible={setModalVisible}
       setCantidadProductoCarrito={setCantidadProductoCarrito}
       cantidadProductoCarrito={cantidadProductoCarrito}
-      idDetalle={idDetalle}
+      id_detalle={id_detalle}
       setIdDetalle={setIdDetalle}
       accionBotonDetalle={handleEditarDetalle}
       getDetalleCarrito={getDetalleCarrito}
@@ -106,7 +109,7 @@ const Carrito = ({ navigation }) => {
       <ModalEditarCantidad
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
-        idDetalle={idDetalle}
+        id_detalle={id_detalle}
         setIdDetalle={setIdDetalle}
         setCantidadProductoCarrito={setCantidadProductoCarrito}
         cantidadProductoCarrito={cantidadProductoCarrito}
@@ -120,8 +123,10 @@ const Carrito = ({ navigation }) => {
       {dataDetalleCarrito.length > 0 ? (
         <FlatList
           data={dataDetalleCarrito}
+          keyExtractor={(item) => item.id_detalle_pedidos?.toString() || Math.random().toString()}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id_detalle.toString()}
+          
+          
         />
       ) : (
         <Text style={styles.titleDetalle}>No hay detalles del carrito disponibles.</Text>

@@ -1,43 +1,44 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
 import Buttons from '../Button/Button';
 import * as Constantes from '../../utils/constantes'
 
-const ModalCompra = ({ visible, cerrarModal, nombreProductoModal, idProductoModal, cantidad, setCantidad}) => {
+const ModalCompra = ({ visible, cerrarModal, nombreProductoModal, idProductoModal,talla, cantidad,setTalla, setCantidad }) => {
 
   const ip = Constantes.IP;
 
   const handleCreateDetail = async () => {
 
     try {
-        if ((cantidad<0)) {
-            Alert.alert("Debes llenar todos los campos")
-            return
-        }
-        else {
-            const formData = new FormData();
-            formData.append('idProducto', idProductoModal);
-            formData.append('cantidadProducto', cantidad);
+    if (!idProductoModal || !talla || cantidad <= 0) {
+      Alert.alert("Debes llenar todos los campos necesarios");
+      return;
+      }
+      else {
+        const formData = new FormData();
+        formData.append('idProducto', idProductoModal);
+        formData.append('cantidadProducto', cantidad.toString());
+        formData.append('Talla', talla );
 
-            const response = await fetch(`${ip}/Carmoto.sv/api/services/public/pedido.php?action=createDetail`, {
-                method: 'POST',
-                body: formData
-            });
+        const response = await fetch(`${ip}/Carmoto.sv/api/services/public/pedido.php?action=createDetail`, {
+          method: 'POST',
+          body: formData
+        });
 
-            const data = await response.json();
-            console.log("data despues del response", data);
-            if (data.status) {
-                Alert.alert('Datos Guardados correctamente');
-                cerrarModal(false);
-            } else {
-                Alert.alert('Error', data.error);
-            }
+        const data = await response.json();
+        console.log("data despues del response", data);
+        if (data.status) {
+          Alert.alert('Datos Guardados correctamente');
+          cerrarModal(false);
+        } else {
+          Alert.alert('Error', data.error);
         }
+      }
 
     } catch (error) {
-        Alert.alert('Ocurrió un error al crear detalle');
+      Alert.alert('Ocurrió un error al crear detalle');
     }
-};
+  };
 
   const handleCancelCarrito = () => {
     // Lógica para agregar al carrito con la cantidad ingresada
@@ -59,19 +60,28 @@ const ModalCompra = ({ visible, cerrarModal, nombreProductoModal, idProductoModa
         <View style={styles.modalView}>
           <Text style={styles.modalText}>{nombreProductoModal}</Text>
           <Text style={styles.modalText}>Cantidad:</Text>
-          <TextInput  
+          
+          <TextInput
             style={styles.input}
             value={cantidad}
             onChangeText={text => setCantidad(text)}
             keyboardType="numeric"
             placeholder="Ingrese la cantidad"
           />
+          <Text style={styles.modalText}>Talla:</Text>
+          <TextInput
+            style={styles.input}
+            value={talla}
+            onChangeText={text => setTalla(text)}
+            keyboardType="text"
+            placeholder="Ingrese la talla"
+          />
           <Buttons
-          textoBoton='Agregar al carrito'
-          accionBoton={() => handleCreateDetail()}/>
-                    <Buttons
-          textoBoton='Cancelar'
-          accionBoton={() => handleCancelCarrito()}/>
+            textoBoton='Agregar al carrito'
+            accionBoton={() => handleCreateDetail()} />
+          <Buttons
+            textoBoton='Cancelar'
+            accionBoton={() => handleCancelCarrito()} />
         </View>
       </View>
     </Modal>

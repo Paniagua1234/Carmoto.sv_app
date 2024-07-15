@@ -37,7 +37,7 @@ const CarritoCard = ({item, cargarCategorias,
       }
     };*/
     
-    const handleDeleteDetalleCarrito = async (idDetalle) => {
+    const handleDeleteDetalleCarrito = async (id_detalle) => {
       try {
         // Mostrar un mensaje de confirmación antes de eliminar
         Alert.alert(
@@ -52,7 +52,7 @@ const CarritoCard = ({item, cargarCategorias,
               text: 'Eliminar',
               onPress: async () => {
                 const formData = new FormData();
-                formData.append('idDetalle', idDetalle);
+                formData.append('idDetalle', id_detalle_pedidos);
                 const response = await fetch(`${ip}/Carmoto.sv/api/services/public/pedido.php?action=deleteDetail`, {
                   method: 'POST',
                   body: formData
@@ -61,7 +61,7 @@ const CarritoCard = ({item, cargarCategorias,
                 if (data.status) {
                   Alert.alert('Datos eliminados correctamente del carrito');
                   // Llamar a la función de actualización para actualizar la lista
-                  updateDataDetalleCarrito(prevData => prevData.filter(item => item.id_detalle !== idDetalle));
+                  updateDataDetalleCarrito(prevData => prevData.filter(item => item.id_detalle_pedidos !== idDetalle));
                 } else {
                   Alert.alert('Error al eliminar del carrito', data.error);
                 }
@@ -78,14 +78,15 @@ const CarritoCard = ({item, cargarCategorias,
   return (
     <View style={styles.itemContainer}>
 
-    <Text style={styles.itemText}>ID: {item.id_detalle}</Text>
-    <Text style={styles.itemText}>Nombre: {item.nombre_producto}</Text>
-    <Text style={styles.itemText}>Precio: ${item.precio_producto}</Text>
-    <Text style={styles.itemText}>Cantidad: {item.cantidad_producto}</Text>
-    <Text style={styles.itemText}>SubTotal: ${(parseFloat(item.cantidad_producto)*parseFloat(item.precio_producto)).toFixed(2)}</Text>
+    <Text style={styles.itemText}>ID: {item.id_detalle_pedidos}</Text>
+    <Text style={styles.itemText}>Nombre: {item.nombre_casco}</Text>
+    <Text style={styles.itemText}>Precio: ${item.precio_casco}</Text>
+    <Text style={styles.itemText}>Cantidad: {item.cantidad_productos}</Text>
+    <Text style={styles.itemText}>Talla: {item.talla_casco}</Text>
+    <Text style={styles.itemText}>SubTotal: ${(parseFloat(item.cantidad_productos)*parseFloat(item.precio_casco)).toFixed(2)}</Text>
 
     <TouchableOpacity style={styles.modifyButton}
-    onPress={()=>accionBotonDetalle(item.id_detalle, item.cantidad_producto)}
+    onPress={()=>accionBotonDetalle(item.id_detalle_pedidos, item.cantidad_productos)}
     >
       <Text style={styles.buttonText}>Modificar Cantidad</Text>
     </TouchableOpacity>
