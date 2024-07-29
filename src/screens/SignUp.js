@@ -107,7 +107,7 @@ export default function SignUp({ navigation }) {
    
             // Si todos los campos son válidos, proceder con la creación del usuario
             const formData = new FormData();
-            formData.append('nombreCliente0', nombre);
+            formData.append('nombreCliente', nombre);
             formData.append('apellidoCliente', apellido);
             formData.append('correoCliente', email);
             formData.append('direccionCliente', direccion);
