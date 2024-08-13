@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
         borderColor: "#AF8260",
         width: Platform.OS === 'ios' ? 200 : 200,
         borderRadius: 10,
-        backgroundColor: "#AF8260",
+        backgroundColor: "#fdfff6",
         padding: Platform.OS === 'ios' ? 15 : 10,
         marginVertical: 5
     },
     buttonText: {
         textAlign: 'center',
-        color: "#FFF", fontWeight: '800', textTransform: 'uppercase'
+        color: "#000000", fontWeight: '800', textTransform: 'uppercase'
     }
 });

@@ -1,8 +1,7 @@
-import React from 'react';
-import { StyleSheet, Text, View,TextInput, TouchableOpacity, Alert, Platform} from 'react-native';
 
+import { StyleSheet, TextInput, Platform} from 'react-native';
 
-export default function Input({placeHolder, setValor, contra, setTextChange}) {
+export default function InputEmail({placeHolder, setValor, setTextChange, setEditable}) {
 
   return (
 
@@ -11,8 +10,9 @@ export default function Input({placeHolder, setValor, contra, setTextChange}) {
     placeholder={placeHolder}
     value={setValor}
     placeholderTextColor={'#FFF'}
-    secureTextEntry={contra} 
     onChangeText={setTextChange}
+    keyboardType="email-address"
+    editable={setEditable}
     />
 
   );
@@ -23,9 +23,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#000000',
     color: "#fff", fontWeight:'800',
     width:250,
-    height: Platform.OS === 'ios' ? 50 : 50, // Estilo de la barra de pestañas, altura diferente para iOS y Android
     borderRadius:5,
-    padding: 5,
+    padding: Platform.OS === 'ios' ? 15 : 10, // Estilo de la barra de pestañas, altura diferente para iOS y Android,
     marginVertical:10
   },
 

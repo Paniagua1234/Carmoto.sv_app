@@ -80,7 +80,7 @@ export default function Productos({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Catálogo de Cascos</Text>
-      <Buttons textoBoton="Volver a Home" accionBoton={volverInicio} />
+      
       <ModalCompra
         visible={modalVisible}
         cerrarModal={setModalVisible}
@@ -127,6 +127,13 @@ export default function Productos({ navigation }) {
         <FontAwesome name="shopping-cart" size={24} color="white" />
         <Text style={styles.cartButtonText}>Ir al carrito</Text>
       </TouchableOpacity>
+      
+      <Buttons
+                textoBoton='Volver al Inicio'
+                accionBoton={volverInicio}
+            />
+
+  
     </View>
   );
 }

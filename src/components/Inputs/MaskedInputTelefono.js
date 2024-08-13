@@ -20,7 +20,7 @@ export default function MaskedInputTelefono({telefono, setTelefono}) {
 
 const styles = StyleSheet.create({
     Input: {
-      backgroundColor:'#A79277',
+      backgroundColor:'#000000',
       color: "#fff",
       fontWeight:'800',
       width:250,
