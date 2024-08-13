@@ -29,24 +29,25 @@ export default function UpdateUser({ navigation }) {
   // Funcion para llenar los inputs con los datos del usuario
   const fillData = async () => {
     try {
-        const response = await fetch(`${ip}/coffeeshop/api/services/public/cliente.php?action=getUser`, {
+        const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=readProfile`, {
             method: 'GET'
         });
         const data = await response.json();
         console.log("Data en actualizar consultada", data);
         if (data.status) {
-            console.log(data.name, 'Valor de editar perfil')
-            setNombre(data.name.nombre_cliente);
-            setApellido(data.name.apellido_cliente);
-            setEmail(data.name.correo_cliente);
-            setDireccion(data.name.direccion_cliente);
-            setDui(data.name.dui_cliente);
-            setTelefono(data.name.telefono_cliente);
+            console.log(data.dataset, 'Valor de editar perfil')
+            setNombre(data.dataset.nombre_cliente);
+            setApellido(data.dataset.apellido_cliente);
+            setEmail(data.dataset.correo_cliente);
+            setDireccion(data.dataset.direccion_cliente);
+            setDui(data.dataset.dui_cliente);
+            setTelefono(data.dataset.telefono_cliente);
         } else {
             Alert.alert('Error', data.error);
         }
     } catch (error) {
         Alert.alert('Ocurrió un error al intentar obtener los datos del usuario');
+        console.log(error);
     }
   };
 

@@ -52,6 +52,7 @@ export default function Home({ navigation }) {
         Alert.alert('Error', data.error);
       }
     } catch (error) {
+      console.log(error)
       Alert.alert('Error', 'Ocurrió un error al obtener informacion del usuario');
     }
   };

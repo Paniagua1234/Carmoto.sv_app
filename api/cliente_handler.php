@@ -49,15 +49,33 @@ class ClienteHandler
         }
     }
 
-    public function checkStatus()
+    public function editProfile()
     {
-        if ($this->estado) {
-            $_SESSION['idCliente'] = $this->id;
-            $_SESSION['correoCliente'] = $this->correo;
-            return true;
-        } else {
-            return false;
-        }
+        $sql = 'UPDATE cliente
+                SET nombre_cliente = ?, apellido_cliente = ?, correo_cliente = ?, dui_cliente = ?, telefono_cliente = ?, nacimiento_cliente = ?, direccion_cliente = ?
+                WHERE id_cliente = ?';
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->dui, $this->telefono, $this->nacimiento, $this->direccion, $this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+
+    public function editProfileCorreo()
+    {
+        $sql = 'UPDATE cliente
+                SET nombre_cliente = ?, apellido_cliente = ?, correo_cliente = ?, telefono_cliente = ?, direccion_cliente = ?
+                WHERE id_cliente = ?';
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->telefono, $this->direccion, $this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+
+     public function changeStatus()
+    {
+        $sql = 'UPDATE cliente
+                SET estado_cliente = ?
+                WHERE id_cliente = ?';
+        $params = array($this->estado, $this->id);
+        return Database::executeRow($sql, $params);
     }
 
 
@@ -68,7 +86,7 @@ class ClienteHandler
     {
         $value = '%' . Validator::getSearchValue() . '%';
         $sql = 'SELECT id_cliente, nombre_cliente, apellido_cliente, dui_cliente, correo_cliente, telefono_cliente, nacimiento_cliente, direccion_cliente, contraseña_cliente, fecha_cliente
-                FROM Clientes
+                FROM clientes
                 WHERE nombre_cliente LIKE ? 
                 ORDER BY nombre_cliente';
         $params = array($value);
@@ -116,6 +134,9 @@ class ClienteHandler
         return Database::executeRow($sql, $params);
     }
 
+
+    
+
     
 
     //metodo para el grafico de los clientes que mas pedidos tienen
@@ -156,7 +177,7 @@ class ClienteHandler
     public function checkDuplicate($value)
     {
         $sql = 'SELECT id_cliente
-                FROM Clientes
+                FROM clientes
                 WHERE dui_cliente = ? OR correo_cliente = ?';
         $params = array($value, $value);
         return Database::getRow($sql, $params);
@@ -168,5 +189,14 @@ class ClienteHandler
                 WHERE id_cliente = ?';
         $params = array($this->contraseña, $this->id);
         return Database::executeRow($sql, $params);
+    }  
+    public function readProfile() 
+    {
+        $sql = 'SELECT cliente id_cliente, nombre_cliente, apellido_cliente, correo_cliente, direccion_cliente,dui_cliente, telefono_clientente
+                WHERE id_cliente = ?';
+        $params = array($_SESSION['id_cliente']);
+        return Database::getRow($sql, $params);
     }
+ 
+
 }
