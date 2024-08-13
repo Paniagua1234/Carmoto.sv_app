@@ -34,23 +34,28 @@ export default function Home({ navigation }) {
   const getUser = async () => {
     try {
       const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=getUser`, {
-        method: 'GET',
+        method: 'GET'
       });
 
       const data = await response.json();
 
+      console.log(data.username)
       if (data.status) {
-        // Guarda el nombre del usuario en el estado
-        setNombre(data.name.nombre_cliente); 
+       //codigo para mostrar el correo del usuario
+        //setCorreo(data.username)
+        //codigo para mostrar el nombre del usuario
+       setNombre(data.username)
+       
       } else {
         console.log(data);
+        // Alert the user about the error
         Alert.alert('Error', data.error);
       }
     } catch (error) {
-      Alert.alert('Error', 'Ocurrió un error al obtener la información del usuario');
+      Alert.alert('Error', 'Ocurrió un error al obtener informacion del usuario');
     }
   };
-
+  
   // useEffect para llamar a getUser al cargar el componente
   useFocusEffect(
     React.useCallback(() => { 
