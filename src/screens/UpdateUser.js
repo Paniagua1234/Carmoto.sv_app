@@ -82,7 +82,7 @@ export default function UpdateUser({ navigation }) {
         formData.append('correoCliente', email);
         formData.append('direccionCliente', direccion);
         formData.append('telefonoCliente', telefono);
-        const response = await fetch(`${ip}/coffeeshop/api/services/public/cliente.php?action=editProfile`, {
+        const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=editProfile`, {
             method: 'POST',
             body: formData
         });
