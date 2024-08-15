@@ -81,6 +81,7 @@ export default function UpdateUser({ navigation }) {
         formData.append('apellidoCliente', apellido);
         formData.append('correoCliente', email);
         formData.append('direccionCliente', direccion);
+        formData.append('duiCliente', dui);
         formData.append('telefonoCliente', telefono);
         const response = await fetch(`${ip}/Carmoto.sv/api/services/public/cliente.php?action=editProfile`, {
             method: 'POST',
