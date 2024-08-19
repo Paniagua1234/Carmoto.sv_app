@@ -230,15 +230,15 @@ const styles = StyleSheet.create({
  
     fecha: {
         fontWeight: '600',
-        color: '#FFF'
+        color: '#fff'
     },
     fechaSeleccionar: {
         fontWeight: '700',
-        color: '#322C2B',
+        color: '#fff',
         textDecorationLine: 'underline'
     },
     contenedorFecha: {
-        backgroundColor: '#A79277',
+        backgroundColor: '#000000',
         color: "#fff", fontWeight: '800',
         width: 250,
         borderRadius: 5,
