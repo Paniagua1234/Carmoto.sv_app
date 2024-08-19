@@ -6,6 +6,16 @@ import Input from '../components/Inputs/Input'
 import InputMultiline from '../components/Inputs/InputMultiline'
 import { useFocusEffect } from '@react-navigation/native';
 
+/* 
+Algunos estandares de programación en javascript
+
+1. Los archivos javascript deben estar escrito en el formato de codificacion UTF-8
+2. Para importar otros ES modules, se debe usar "import"
+3. No importar un mismo archivo mas de una vez, mejor importar los elementos con el mismo archivo
+4. Los nombres de los elementos importados deberian mantener el mismo nombre, evitando usar "as"
+
+*/
+
 export default function Home({ navigation }) {
   const [nombre, setNombre] = useState(null); // Estado para almacenar el nombre del usuario
   const ip = Constantes.IP;

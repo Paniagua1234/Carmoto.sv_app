@@ -96,7 +96,10 @@ export default function Sesion({ navigation }) {
     }
   };
   
-
+// Función para navegar hacia la pantalla de recuperación de contraseña
+const Recuperar = async () => {
+  navigation.navigate('RecuperarContrasena');
+};
 
   const irRegistrar = async () => {
     navigation.navigate('SignUp');
@@ -140,6 +143,9 @@ export default function Sesion({ navigation }) {
       <TouchableOpacity onPress={irRegistrar} style={styles.BotonRegistrar}>
         <Text style={styles.textRegistrar}>Registrar Usuario</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={Recuperar}>
+                <Text style={styles.forgotPasswordText}>¿Olvidaste tu contraseña?</Text>
+            </TouchableOpacity>
     </View>
   );
 }
