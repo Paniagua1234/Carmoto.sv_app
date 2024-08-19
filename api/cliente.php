@@ -1,4 +1,14 @@
 <?php
+/* 
+Algunos estanderes de programacion en php
+1. Los archivos php deben iniciar con la etiqueta "<?php"
+2. El php debe estar escrito en el sistema de codificacion UTF-8
+3. Un archivo php debe cuidar si usará el archivo para generar conexiones con "require" o para determinar nuevas clases o funciones,
+   pero nunca debera usar los 2 en el mismo archivo, el condicional no tiene efectos secundarios
+4. Las clases deben estar escritas en StudlyCaps
+5. Dentro de las clases, todas las constantes deben ser escritas en mayúscula y separado por guiones
+6. Los metodos tienen que estar escritos en camelCase
+*/
 // Se incluye la clase del modelo.
 require_once ('../../Models/data/cliente_data.php');
 
