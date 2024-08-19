@@ -12,34 +12,37 @@ export default function RecuperarContrasena({ navigation }) {
     const [alertMessage, setAlertMessage] = useState('');
 
     // Funcion que envia el correo
+
     const sendMail = async (data) => {
         console.log('Datos recibidos en sendMail:', data);
         try {
             if (!data || !data.correo_cliente) {
                 throw new Error('El correo electrónico no está definido');
             }
-
+    
             console.log('PIN enviado:', data.codigo_recuperacion);
-
-            console.log('Datos a enviar en sendMail:', {
+    
+            console.log('Datos a enviar en sendMail test:', {
                 codigo_recuperacion: data.codigo_recuperacion || '',
                 correo_cliente: data.correo_cliente || ''
             });
-
+    
             const formData = new FormData();
             formData.append('codigo_recuperacion', data.codigo_recuperacion || '');
             formData.append('correo_cliente', data.correo_cliente || '');
-
-            const response = await fetch(`${ip}/libraries/sendCode.php`, {
+    
+            const response = await fetch(`${ip}/Carmoto.sv/api/Librerias/sendCode.php`, {
                 method: 'POST',
                 body: formData,
             });
-
-            const contentType = response.headers.get('Content-Type');
-            if (contentType && contentType.includes('application/json')) {
-                const responseData = await response.json();
+    
+            const responseText = await response.text(); // Obtén la respuesta como texto
+            console.log('Respuesta del servidor en texto:', responseText);
+    
+            try {
+                const responseData = JSON.parse(responseText); // Intenta parsear el JSON
                 console.log('Respuesta del servidor:', responseData);
-
+    
                 if (responseData.status) {
                     setAlertMessage('Revise su correo electrónico');
                     setShowAlert(true);
@@ -51,9 +54,8 @@ export default function RecuperarContrasena({ navigation }) {
                     setAlertMessage(responseData.message || 'Error al enviar el correo');
                     setShowAlert(true);
                 }
-            } else {
-                const text = await response.text();
-                console.error('Respuesta del servidor no es JSON:', text);
+            } catch (error) {
+                console.error('Error al parsear JSON:', error);
                 setAlertMessage('Error en la respuesta del servidor');
                 setShowAlert(true);
             }
@@ -63,7 +65,7 @@ export default function RecuperarContrasena({ navigation }) {
             setShowAlert(true);
         }
     };
-
+    
     // Funcion para verificar el correo del usuario
     const handleUs = async () => {
         try {
