@@ -9,7 +9,7 @@ import ModalEditarCantidad from '../components/Modales/ModalEditarCantidad';
 
 const Carrito = ({ navigation }) => {
   const [dataDetalleCarrito, setDataDetalleCarrito] = useState([]);
-  const [idDetalle, setIdDetalle] = useState(null);
+  const [id_detalle, setIdDetalle] = useState(null);
   const [cantidadProductoCarrito, setCantidadProductoCarrito] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const ip = Constantes.IP;
@@ -41,30 +41,7 @@ const Carrito = ({ navigation }) => {
     }
   };
 
-  const handleEditarDetalle = (id_detalle_pedidos, cantidad_productos) => {
-    setModalVisible(true);
-    setIdDetalle(id_detalle_pedidos);
-    setCantidadProductoCarrito(cantidad_productos);
-  };
-
-  const eliminarDetalle = async (id_detalle_pedidos) => {
-    try {
-      const response = await fetch(`${ip}/Carmoto.sv/api/services/public/pedido.php?action=deleteDetail`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id_detalle_pedidos }),
-      });
-      const data = await response.json();
-      if (data.status) {
-        Alert.alert("El pedido se eliminó correctamente");
-        getDetalleCarrito(); // Actualiza el carrito después de eliminar un detalle
-      } else {
-        Alert.alert('Error', data.error);
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Ocurrió un error al eliminar el pedido');
-    }
-  };
+  
 
   const finalizarPedido = async () => {
     try {
@@ -84,6 +61,13 @@ const Carrito = ({ navigation }) => {
     }
   };
 
+  
+    // Función para manejar la modificación de un detalle del carrito
+    const handleEditarDetalle = (id_detalle, cantidadDetalle) => {
+      setModalVisible(true);
+      setIdDetalle(id_detalle);
+      setCantidadProductoCarrito(cantidadDetalle);
+  };
   const renderItem = ({ item }) => (
     <CarritoCard
       item={item}
@@ -91,11 +75,10 @@ const Carrito = ({ navigation }) => {
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
       setCantidadProductoCarrito={setCantidadProductoCarrito}
-      cantidad_productos={cantidadProductoCarrito}
-      id_detalle_pedidos={idDetalle}
+      cantidadProductoCarritos={cantidadProductoCarrito}
+      id_detalle={id_detalle}
       setIdDetalle={setIdDetalle}
       accionBotonDetalle={handleEditarDetalle}
-      eliminarDetalle={eliminarDetalle} // Pasamos la función de eliminar como prop
       getDetalleCarrito={getDetalleCarrito}
       updateDataDetalleCarrito={setDataDetalleCarrito}
     />
@@ -106,10 +89,10 @@ const Carrito = ({ navigation }) => {
       <ModalEditarCantidad
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
-        id_detalle_pedidos={idDetalle}
+        id_detalle={id_detalle}
         setIdDetalle={setIdDetalle}
         setCantidadProductoCarrito={setCantidadProductoCarrito}
-        cantidad_productos={cantidadProductoCarrito}
+        cantidadProductoCarrito={cantidadProductoCarrito}
         getDetalleCarrito={getDetalleCarrito}
       />
 
@@ -118,7 +101,7 @@ const Carrito = ({ navigation }) => {
       {dataDetalleCarrito.length > 0 ? (
         <FlatList
           data={dataDetalleCarrito}
-          keyExtractor={(item) => item.id_detalle_pedidos?.toString() || Math.random().toString()}
+          keyExtractor={(item) => item.id_detalle_pedido?.toString() || Math.random().toString()}
           renderItem={renderItem}
         />
       ) : (

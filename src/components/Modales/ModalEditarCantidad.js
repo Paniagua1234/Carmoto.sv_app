@@ -3,7 +3,7 @@ import { View, Text, Modal, StyleSheet, TouchableOpacity, TextInput, Alert } fro
 import Buttons from '../Button/Button';
 import * as Constantes from '../../utils/constantes';
 
-const ModalEditarCantidad = ({setModalVisible, modalVisible, idDetalle, setCantidadProductoCarrito, cantidadProductoCarrito, getDetalleCarrito}) => {
+const ModalEditarCantidad = ({setModalVisible, modalVisible, id_detalle, setCantidadProductoCarrito, cantidadProductoCarrito, getDetalleCarrito}) => {
 
   const ip = Constantes.IP;
 
@@ -15,7 +15,7 @@ const ModalEditarCantidad = ({setModalVisible, modalVisible, idDetalle, setCanti
       }
 
       const formData = new FormData();
-      formData.append('idDetalle', idDetalle);
+      formData.append('idDetalle', id_detalle);
       formData.append('cantidadProducto', cantidadProductoCarrito);
 
       const response = await fetch(`${ip}/Carmoto.sv/api/services/public/pedido.php?action=updateDetail`, {
@@ -29,11 +29,14 @@ const ModalEditarCantidad = ({setModalVisible, modalVisible, idDetalle, setCanti
         getDetalleCarrito();
       } else {
         Alert.alert('Error al editar detalle carrito', data.error);
+        console.log(data.error);
+        console.log(cantidadProductoCarrito);
       }
       setModalVisible(false);
     } catch (error) {
       Alert.alert("Error en editar carrito", error);
       setModalVisible(false);
+
     }
   };
 

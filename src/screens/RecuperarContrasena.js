@@ -128,7 +128,7 @@ export default function RecuperarContrasena({ navigation }) {
                 </TouchableOpacity>
                 <Text style={styles.title}>Recuperación de contraseña</Text>
             </View>
-            <Text style={styles.registerText}>Ingresa tu correo, posterior te enviaremos un correo al correo enlazado a tu cuenta</Text>
+            <Text style={styles.registerText}>Porfavor ingresa tu correo electronico,  te enviaremos un codigo a tu correo enlazado a tu cuenta</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Correo"
@@ -170,8 +170,6 @@ const styles = StyleSheet.create({
         paddingTop: 50,
     },
     registerText: {
-        textAlign: 'center',
-        color: '#ffffff',
         justifyContent: 'flex-start'
     },
     header: {
@@ -186,13 +184,14 @@ const styles = StyleSheet.create({
         marginRight: 16,
     },
     title: {
+        
         fontSize: 32,
         fontWeight: 'bold',
        
     },
     subtitle: {
         fontSize: 18,
-        color: '#000',
+        color: '#fff',
         marginBottom: 24,
     },
     input: {
@@ -205,7 +204,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         fontSize: 16,
         borderRadius: 8,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#fff',
     },
     button: {
         width: '100%',
