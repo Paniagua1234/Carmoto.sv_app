@@ -11,6 +11,7 @@ import TabNavigator from './src/screens/tabNavigator/TabNavigator.js'; // Import
 import RecuperarContrasena from './src/screens/RecuperarContrasena.js';
 import VerificarCodigo from './src/screens/VerificarCodigo.js';
 import NuevaClave from './src/screens/NuevaClave.js';
+import HistorialCompras from './src/screens/HistorialCompras.js';
 
 
 
@@ -38,6 +39,7 @@ export default function App() {
         <Stack.Screen name="RecuperarContrasena" component={RecuperarContrasena} />
         <Stack.Screen name="VerificarCodigo" component={VerificarCodigo} />
         <Stack.Screen name="NuevaClave" component={NuevaClave} />
+        <Stack.Screen name="HistorialCompras" component={HistorialCompras} />
       </Stack.Navigator>
     </NavigationContainer>
 
