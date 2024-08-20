@@ -164,12 +164,14 @@ export default function RecuperarContrasena({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#F01212',
         justifyContent: 'center',
         padding: 16,
         paddingTop: 50,
     },
     registerText: {
+        textAlign: 'center',
+        color: '#ffffff',
         justifyContent: 'flex-start'
     },
     header: {
@@ -186,6 +188,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 32,
         fontWeight: 'bold',
+       
     },
     subtitle: {
         fontSize: 18,
