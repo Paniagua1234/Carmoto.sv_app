@@ -9,6 +9,8 @@ import Carrito from './src/screens/Carrito.js';
 import UpdateUser from './src/screens/UpdateUser.js'; // Importa la pantalla de Actualización de Usuario
 import TabNavigator from './src/screens/tabNavigator/TabNavigator.js'; // Importa el navegador de pestañas
 import RecuperarContrasena from './src/screens/RecuperarContrasena.js';
+import VerificarCodigo from './src/screens/VerificarCodigo.js';
+import NuevaClave from './src/screens/NuevaClave.js';
 
 
 
@@ -34,6 +36,8 @@ export default function App() {
         <Stack.Screen name="UpdateUser" component={UpdateUser} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} /> 
         <Stack.Screen name="RecuperarContrasena" component={RecuperarContrasena} />
+        <Stack.Screen name="VerificarCodigo" component={VerificarCodigo} />
+        <Stack.Screen name="NuevaClave" component={NuevaClave} />
       </Stack.Navigator>
     </NavigationContainer>
 
