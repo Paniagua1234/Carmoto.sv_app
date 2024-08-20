@@ -82,6 +82,10 @@ export default function Home({ navigation }) {
     navigation.navigate('UpdateUser');
   };
 
+  const Historial = () => {
+    navigation.navigate('HistorialCompras');
+  };
+
   const volverInicio = () => {
     navigation.navigate('TabNavigator');
   };
@@ -106,6 +110,10 @@ export default function Home({ navigation }) {
       <Buttons
         textoBoton='Editar Usuario'
         accionBoton={EditUser}
+      />
+      <Buttons
+        textoBoton='Historial de compras'
+        accionBoton={Historial}
       />
     </View>
   );

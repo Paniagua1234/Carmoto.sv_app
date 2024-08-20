@@ -28,7 +28,7 @@ const HistorialCompras = () => {
 
   const renderItem = ({ item }) => (
     <View style={styles.item}>
-      <Text>ID Pedido: {item.id_pedido}</Text>
+      <Text>Numero de pedido : {item.id_pedido}</Text>
       <Text>Fecha: {item.fecha_registro}</Text>
       <Text>Estado: {item.estado_pedidos}</Text>
     </View>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#EAD8C0',
+    backgroundColor: '#F01212',
   },
   title: {
     fontSize: 24,
