@@ -41,8 +41,6 @@ const Carrito = ({ navigation }) => {
     }
   };
 
-  
-
   const finalizarPedido = async () => {
     try {
       const response = await fetch(`${ip}/Carmoto.sv/api/services/public/pedido.php?action=finishOrder`, {
@@ -61,13 +59,12 @@ const Carrito = ({ navigation }) => {
     }
   };
 
-  
-    // Función para manejar la modificación de un detalle del carrito
-    const handleEditarDetalle = (id_detalle, cantidadDetalle) => {
-      setModalVisible(true);
-      setIdDetalle(id_detalle);
-      setCantidadProductoCarrito(cantidadDetalle);
+  const handleEditarDetalle = (id_detalle, cantidadDetalle) => {
+    setModalVisible(true);
+    setIdDetalle(id_detalle);
+    setCantidadProductoCarrito(cantidadDetalle);
   };
+
   const renderItem = ({ item }) => (
     <CarritoCard
       item={item}

@@ -28,9 +28,13 @@ const HistorialCompras = () => {
 
   const renderItem = ({ item }) => (
     <View style={styles.item}>
-      <Text>Numero de pedido : {item.id_pedido}</Text>
+      <Text>Numero de pedido: {item.id_pedido}</Text>
       <Text>Fecha: {item.fecha_registro}</Text>
       <Text>Estado: {item.estado_pedidos}</Text>
+      <Text>Nombre del casco: {item.nombre_casco}</Text>
+      <Text>Talla: {item.talla_casco}</Text>
+      <Text>Cantidad: {item.cantidad_productos}</Text>
+      <Text>Precio: {item.precio_productos}</Text>
     </View>
   );
 
