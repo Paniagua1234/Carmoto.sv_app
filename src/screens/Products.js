@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react'; // Importa React y algunos hooks de React
+import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet, SafeAreaView } from 'react-native';
 import Constants from 'expo-constants';
 import { FontAwesome } from '@expo/vector-icons';
@@ -31,29 +32,30 @@ export default function Productos({ navigation }) {
 
   const getCascos = async (idModeloSelect = 1) => {
     try {
-      if (idModeloSelect <= 0) return;
+      if (idModeloSelect <= 0) {
+          return;
+      }
       const formData = new FormData();
-      formData.append('id_modelo_de_casco', idModeloSelect);
-
-      const response = await fetch(`${ip}/Carmoto.sv/api/services/public/producto.php?action=readAll`, {
-        method: 'POST',
-        body: formData,
+      formData.append('idMarca', idModeloSelect);
+      const response = await fetch(`${ip}/Carmoto.sv/api/services/public/producto.php?action=readProductosMarcas`, {
+          method: 'POST',
+          body: formData,
       });
 
       const data = await response.json();
       if (data.status) {
-        setDataCascos(data.dataset);
+          setDataCascos(data.dataset);
       } else {
-        Alert.alert('Error cascos', data.error);
+          Alert.alert('Error Cascos', data.error);
       }
-    } catch (error) {
-      Alert.alert('Error', 'Ocurrió un error al listar los cascos');
-    }
+  } catch (error) {
+      Alert.alert('Error', 'Ocurrió un error al listar los Cascos');
+  }
   };
 
   const getModelos = async () => {
     try {
-      const response = await fetch(`${ip}/Carmoto.sv/api/services/public/producto.php?action=readAll`, {
+      const response = await fetch(`${ip}/Carmoto.sv/api/services/public/marca.php?action=readAll`, {
         method: 'GET',
       });
 
@@ -72,6 +74,13 @@ export default function Productos({ navigation }) {
     getCascos();
     getModelos();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      getCascos();
+    }, [])
+);
+
 
   const irCarrito = () => {
     navigation.navigate('Carrito');
@@ -97,10 +106,10 @@ export default function Productos({ navigation }) {
           <RNPickerSelect
             style={{ inputAndroid: styles.picker }}
             onValueChange={(value) => getCascos(value)}
-            placeholder={{ label: 'Selecciona un modelo...', value: null }}
+            placeholder={{ label: 'Selecciona una marca...', value: null }}
             items={dataModelos.map((modelo) => ({
-              label: modelo.nombre_modelo,
-              value: modelo.id_modelo_de_casco,
+              label: modelo.nombre_marca,
+              value: modelo.id_marca_casco,
             }))}
           />
         </View>
